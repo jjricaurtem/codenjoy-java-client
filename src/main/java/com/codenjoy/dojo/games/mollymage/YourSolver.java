@@ -1,5 +1,9 @@
 package com.codenjoy.dojo.games.mollymage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 /*-
  * #%L
  * Codenjoy - it's a dojo-like platform from developers to developers.
@@ -24,9 +28,13 @@ package com.codenjoy.dojo.games.mollymage;
 
 import com.codenjoy.dojo.client.Solver;
 import com.codenjoy.dojo.services.Dice;
+import com.codenjoy.dojo.services.Direction;
+import com.codenjoy.dojo.services.Point;
+
+import static com.codenjoy.dojo.services.Direction.*;
 
 /**
- * Author: your name
+ * Author: John Ricaurte 
  * <p>
  * This is your AI algorithm for the game.
  * Implement it at your own discretion.
@@ -38,6 +46,8 @@ public class YourSolver implements Solver<Board> {
     private Dice dice;
     private Board board;
 
+    Random random = new Random();
+
     public YourSolver(Dice dice) {
         this.dice = dice;
     }
@@ -46,9 +56,43 @@ public class YourSolver implements Solver<Board> {
     public String get(Board board) {
         this.board = board;
         if (board.isGameOver()) return "";
-
         // TODO put your logic here
 
-        return Command.DROP_POTION;
+        var answer = moveToARandomEmptyAdjacentCell();
+        return answer == null ? Command.DROP_POTION : answer;
+    }
+
+    private String moveToARandomEmptyAdjacentCell(){
+
+
+        Point p = board.getHero();
+        var elements = NearAnswer.getFromNear(board.getNear(p));
+        while(elements.size() > 0){
+            int nextMovement = random.nextInt(elements.size());
+            var answer = elements.get(nextMovement);
+            if(answer.element != Element.NONE) elements.remove(nextMovement);
+            return Command.MOVE.apply(answer.direction);
+        }
+        return null;
+    }
+}
+
+class NearAnswer{
+
+    final Direction direction;
+    public NearAnswer(Direction direction, Element element) {
+        this.direction = direction;
+        this.element = element;
+    }
+
+    final Element element;
+
+    static List<NearAnswer> getFromNear(List<Element> elements){
+        List<NearAnswer> nearAnswer = new ArrayList<>(4);
+        nearAnswer.add( new NearAnswer(LEFT, elements.get(0)) );
+        nearAnswer.add( new NearAnswer(RIGHT, elements.get(1)) );
+        nearAnswer.add( new NearAnswer(UP, elements.get(2)) );
+        nearAnswer.add( new NearAnswer(DOWN, elements.get(3)) );
+        return nearAnswer;
     }
 }

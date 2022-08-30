@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch JavaRunner",
+            "request": "launch",
+            "mainClass": "com.codenjoy.dojo.JavaRunner",
+            "projectName": "client-java"
+        },
+        {
+            "type": "java",
+            "name": "Launch YourSolver$SkipThisLevel",
+            "request": "launch",
+            "mainClass": "com.codenjoy.dojo.games.kata.YourSolver$SkipThisLevel",
+            "projectName": "client-java"
+        },
+        {
+            "type": "java",
+            "name": "Launch YourSolver$StartNextLevel",
+            "request": "launch",
+            "mainClass": "com.codenjoy.dojo.games.kata.YourSolver$StartNextLevel",
+            "projectName": "client-java"
+        },
+        {
+            "type": "java",
+            "name": "Launch SwingClient",
+            "request": "launch",
+            "mainClass": "com.codenjoy.dojo.games.lunolet.swing.SwingClient",
+            "projectName": "client-java"
+        },
+        {
+            "type": "java",
+            "name": "Launch ElementGeneratorRunner",
+            "request": "launch",
+            "mainClass": "com.codenjoy.dojo.services.generator.ElementGeneratorRunner",
+            "projectName": "client-java"
+        }
+    ]
+}
